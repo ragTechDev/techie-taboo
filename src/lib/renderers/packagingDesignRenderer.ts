@@ -414,8 +414,13 @@ export async function createPackagingSVG(
 
   const panelAttrs = includeBorders ? 'class="panel-stroke"' : 'stroke="none"';
 
+  // Convert mm to pixels at 96 DPI for sharp browser rendering
+  const pxPerMm = 96 / 25.4;
+  const widthPx = Math.round(totalWidth * pxPerMm);
+  const heightPx = Math.round(totalHeight * pxPerMm);
+
   return `<?xml version="1.0" encoding="UTF-8"?>
-<svg xmlns="http://www.w3.org/2000/svg" width="${totalWidth}mm" height="${totalHeight}mm" viewBox="0 0 ${totalWidth} ${totalHeight}" shape-rendering="geometricPrecision" text-rendering="geometricPrecision">
+<svg xmlns="http://www.w3.org/2000/svg" width="${widthPx}" height="${heightPx}" viewBox="0 0 ${totalWidth} ${totalHeight}" shape-rendering="geometricPrecision" text-rendering="geometricPrecision">
   <defs>
     <style><![CDATA[
       ${

@@ -17,7 +17,7 @@ import {
   createPackagingSvg,
 } from "../lib/renderers/packagingDesignRenderer";
 import {
-  inlineSvgImages,
+  inlineSvgImagesHighRes,
   svgToPng,
   svgToPngPrint,
   downloadBlob,
@@ -33,11 +33,12 @@ const I18N = {
     langLabel: "Language / 语言",
     versionLabel: "Edition / 版本",
     cardsBtn: "Download Cards (PNG ZIP)",
-    pkgWholeBtn: "Download Packaging (Whole ZIP)",
-    pkgPanelsBtn: "Download Packaging (Panels ZIP)",
+    pkgTopLidFullBtn: "Download Top Lid Only - Full Layout",
+    pkgTopLidPanelsBtn: "Download Top Lid Only - Separated Panels",
+    pkgBoxBottomBtn: "Download Box Bottom",
     packagingTitle: "Packaging Designs",
     packagingDesc:
-      "Export full packaging artwork or individual panel artwork for print.",
+      "Export top lid (full layout or separated panels) and box bottom as separate files.",
     referenceTitle: "Reference Preview",
     referenceCaption:
       "Reference image (card.png). Confirm final print files match font and layout.",
@@ -67,10 +68,12 @@ const I18N = {
     langLabel: "语言 / Language",
     versionLabel: "版本 / Edition",
     cardsBtn: "下载卡牌（PNG ZIP）",
-    pkgWholeBtn: "下载包装整图（ZIP）",
-    pkgPanelsBtn: "下载包装分面（ZIP）",
+    pkgTopLidFullBtn: "下载盒盖（不含盒底）- 完整展开图",
+    pkgTopLidPanelsBtn: "下载盒盖（不含盒底）- 分面",
+    pkgBoxBottomBtn: "下载盒底",
     packagingTitle: "包装设计文件",
-    packagingDesc: "可导出整张包装图，或按面导出（顶面/长边/短边）用于印刷。",
+    packagingDesc:
+      "盒盖与盒底分开下载。可导出盒盖完整展开图、盒盖分面或单独盒底。",
     referenceTitle: "参考预览",
     referenceCaption:
       "参考图（card.png）。请确认最终印刷文件的字体与版式一致。",
@@ -107,6 +110,47 @@ const PANEL_EXPORT_LAYOUT = [
 const CARD_EXPORT_SCALE = 300 / 96;
 const CARD_EXPORT_WIDTH = Math.round(610 * CARD_EXPORT_SCALE);
 const CARD_EXPORT_HEIGHT = Math.round(910 * CARD_EXPORT_SCALE);
+
+// Helper to remove lid-back panel from full SVG (lid-back is the box bottom, not part of top lid)
+function removeLidBackFromSvg(svgString: string): string {
+  const parser = new DOMParser();
+  const doc = parser.parseFromString(svgString, "image/svg+xml");
+  const svg = doc.documentElement;
+  const serializer = new XMLSerializer();
+
+  // Get defs
+  const defsMarkup = Array.from(svg.children)
+    .filter((child) => child.tagName.toLowerCase() === "defs")
+    .map((child) => serializer.serializeToString(child))
+    .join("");
+
+  // Get all content except lid-back panel (lid-back is at x=124.8, y=29.4, width=66, height=95)
+  const contentMarkup = Array.from(svg.children)
+    .filter((child) => child.tagName.toLowerCase() !== "defs")
+    .filter((child) => {
+      // Check if this element is the lid-back rect or inside lid-back area
+      const x = parseFloat(child.getAttribute("x") || "0");
+      // lid-back starts at x=124.8, exclude elements in that region
+      return x < 124.8;
+    })
+    .map((child) => serializer.serializeToString(child))
+    .join("");
+
+  // New dimensions without lid-back: width=124.8mm (up to right edge of right long side)
+  // Original layout: left long side (0-29.4), lid top (29.4-95.4), right long side (95.4-124.8)
+  const newWidthMm = 124.8;
+  const newHeightMm = 153.8;
+  // Convert to pixels for sharp browser rendering (96 DPI)
+  const pxPerMm = 96 / 25.4;
+  const newWidthPx = Math.round(newWidthMm * pxPerMm);
+  const newHeightPx = Math.round(newHeightMm * pxPerMm);
+
+  return `<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" width="${newWidthPx}" height="${newHeightPx}" viewBox="0 0 ${newWidthMm} ${newHeightMm}" shape-rendering="geometricPrecision" text-rendering="geometricPrecision">
+  ${defsMarkup}
+  ${contentMarkup}
+</svg>`;
+}
 
 async function cropSvgToPanel(
   svgString: string,
@@ -265,7 +309,12 @@ export default function Manufacturer() {
       }
 
       const zipBlob = await zip.generateAsync({ type: "blob" });
-      downloadBlob(zipBlob, `${selectedEdition}-cards.zip`);
+      // Use Chinese filenames when language is Chinese
+      const filename =
+        lang === "zh"
+          ? `${selectedEdition}-卡牌.zip`
+          : `${selectedEdition}-cards.zip`;
+      downloadBlob(zipBlob, filename);
       setStatus(t.statusDone);
     } catch (error) {
       console.error("Failed to export cards:", error);
@@ -315,8 +364,18 @@ export default function Manufacturer() {
       const svg = await createPackagingSvg(selectedEdition, {
         useSystemFonts: false,
       });
-      const png = await svgToPngPrint(svg, 190.8, 153.8);
-      downloadBlob(png, `${selectedEdition}-packaging-whole.png`);
+      // Inline images at high resolution (3x) for sharp print quality
+      const svgWithHighResImages = await inlineSvgImagesHighRes(svg, 3);
+      // Remove lid-back (box bottom) from the full layout - only export top lid
+      const svgWithoutLidBack = removeLidBackFromSvg(svgWithHighResImages);
+      // New dimensions without lid-back: 124.8mm x 153.8mm at 600 DPI for sharp zooming
+      const png = await svgToPngPrint(svgWithoutLidBack, 124.8, 153.8, 600);
+      // Use Chinese filenames when language is Chinese
+      const filename =
+        lang === "zh"
+          ? `${selectedEdition}-盒盖完整展开图.png`
+          : `${selectedEdition}-packaging-whole.png`;
+      downloadBlob(png, filename);
       setStatus(t.statusDone);
     } catch (error) {
       console.error("Failed to export packaging:", error);
@@ -366,21 +425,126 @@ export default function Manufacturer() {
       const svg = await createPackagingSvg(selectedEdition, {
         useSystemFonts: false,
       });
-      const inlinedSvg = await inlineSvgImages(svg);
+      // Inline images at high resolution (3x) for sharp print quality
+      const inlinedSvg = await inlineSvgImagesHighRes(svg, 3);
       const zip = new JSZip();
       const panelsFolder = zip.folder("panels");
 
-      for (const panel of PANEL_EXPORT_LAYOUT) {
+      // Export top lid panels only (5 panels: lid-top, short sides, long sides)
+      // Excludes lid-back which is the box bottom, not part of the lid
+      const panelsToExport = PANEL_EXPORT_LAYOUT.filter(
+        (p) => p.name !== "lid-back",
+      );
+
+      // Panel name mappings for Chinese
+      const panelNamesZh: Record<string, string> = {
+        "lid-top": "盒盖顶面",
+        "short-side-top": "盒盖短边上",
+        "short-side-bottom": "盒盖短边下",
+        "long-side-left": "盒盖长边左",
+        "long-side-right": "盒盖长边右",
+      };
+
+      for (const panel of panelsToExport) {
         const panelSvg = await cropSvgToPanel(inlinedSvg, panel);
-        const png = await svgToPngPrint(panelSvg, panel.width, panel.height);
-        panelsFolder?.file(`${panel.name}.png`, png);
+        // Export at 600 DPI for sharp zooming
+        const png = await svgToPngPrint(
+          panelSvg,
+          panel.width,
+          panel.height,
+          600,
+        );
+        // Use Chinese panel names when language is Chinese
+        const panelFileName =
+          lang === "zh"
+            ? `${panelNamesZh[panel.name]}.png`
+            : `${panel.name}.png`;
+        panelsFolder?.file(panelFileName, png);
       }
 
       const zipBlob = await zip.generateAsync({ type: "blob" });
-      downloadBlob(zipBlob, `${selectedEdition}-packaging-panels.zip`);
+      // Use Chinese filenames when language is Chinese
+      const filename =
+        lang === "zh"
+          ? `${selectedEdition}-盒盖分面.zip`
+          : `${selectedEdition}-packaging-panels.zip`;
+      downloadBlob(zipBlob, filename);
       setStatus(t.statusDone);
     } catch (error) {
       console.error("Failed to export panels:", error);
+      setStatus(t.statusError);
+    }
+    setIsBusy(false);
+  };
+
+  const downloadBoxBottom = async () => {
+    if (isBusy || !edition) return;
+    setIsBusy(true);
+    setStatus(t.statusPackaging);
+
+    // Load fonts for packaging export
+    try {
+      const gaeguFont = new FontFace(
+        "Gaegu",
+        "url(/assets/fonts/Gaegu/Gaegu-Bold.ttf)",
+        { weight: "700" },
+      );
+      const monoFont = new FontFace(
+        "Monospace",
+        "url(/assets/fonts/monospace/Monospace.ttf)",
+        { weight: "400" },
+      );
+      const monoBoldFont = new FontFace(
+        "Monospace",
+        "url(/assets/fonts/monospace/MonospaceBold.ttf)",
+        { weight: "700" },
+      );
+      const [loadedGaegu, loadedMono, loadedMonoBold] = await Promise.all([
+        gaeguFont.load(),
+        monoFont.load(),
+        monoBoldFont.load(),
+      ]);
+      document.fonts.add(loadedGaegu);
+      document.fonts.add(loadedMono);
+      document.fonts.add(loadedMonoBold);
+    } catch (_) {
+      // Continue — fall back to CSS @font-face
+    }
+    await document.fonts.ready;
+    // Give fonts time to fully render in browser before canvas operations
+    await new Promise((resolve) => setTimeout(resolve, 120));
+
+    try {
+      // Get the full packaging SVG with high-res images
+      const svg = await createPackagingSvg(selectedEdition, {
+        useSystemFonts: false,
+      });
+      const inlinedSvg = await inlineSvgImagesHighRes(svg, 3);
+
+      // Extract just the lid-back panel (box bottom) which has the rules, QR code, etc.
+      const lidBackPanel = PANEL_EXPORT_LAYOUT.find(
+        (p) => p.name === "lid-back",
+      );
+      if (!lidBackPanel) throw new Error("lid-back panel not found in layout");
+
+      const panelSvg = await cropSvgToPanel(inlinedSvg, lidBackPanel);
+      // Export at 600 DPI for sharp zooming
+      const png = await svgToPngPrint(
+        panelSvg,
+        lidBackPanel.width,
+        lidBackPanel.height,
+        600,
+      );
+
+      // Use Chinese filenames when language is Chinese
+      const filename =
+        lang === "zh"
+          ? `${selectedEdition}-盒底.png`
+          : `${selectedEdition}-box-bottom.png`;
+      downloadBlob(png, filename);
+      setStatus(t.statusDone);
+    } catch (error) {
+      console.error("Failed to export box bottom:", error);
       setStatus(t.statusError);
     }
     setIsBusy(false);
@@ -490,7 +654,7 @@ export default function Manufacturer() {
                       disabled={isBusy}
                       data-testid="download-packaging-whole-button"
                     >
-                      {t.pkgWholeBtn}
+                      {t.pkgTopLidFullBtn}
                     </Button>
                     <Button
                       variant="outline"
@@ -498,7 +662,15 @@ export default function Manufacturer() {
                       disabled={isBusy}
                       data-testid="download-packaging-panels-button"
                     >
-                      {t.pkgPanelsBtn}
+                      {t.pkgTopLidPanelsBtn}
+                    </Button>
+                    <Button
+                      variant="outline"
+                      onClick={downloadBoxBottom}
+                      disabled={isBusy}
+                      data-testid="download-box-bottom-button"
+                    >
+                      {t.pkgBoxBottomBtn}
                     </Button>
                   </div>
                 </div>

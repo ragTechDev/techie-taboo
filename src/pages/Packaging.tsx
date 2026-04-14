@@ -39,6 +39,7 @@ const PANEL_EXPORT_LAYOUT = [
   { name: "short-side-bottom", x: 29.4, y: 124.4, width: 66, height: 29.4 },
   { name: "long-side-left", x: 0, y: 29.4, width: 29.4, height: 95 },
   { name: "long-side-right", x: 95.4, y: 29.4, width: 29.4, height: 95 },
+  { name: "lid-back", x: 124.8, y: 29.4, width: 66, height: 95 },
 ];
 
 async function cropSvgToPanel(
@@ -149,7 +150,7 @@ export function Packaging() {
 
     try {
       // Export current preview SVG to avoid first-click regeneration timing issues
-      const png = await svgToPngPrint(output, 124.8, 153.8); // High DPI for print
+      const png = await svgToPngPrint(output, 190.8, 153.8); // High DPI for print
       const filename = `${selectedCategory || selectedEdition}-packaging.png`;
       downloadBlob(png, filename);
     } catch (error) {
@@ -168,7 +169,7 @@ export function Packaging() {
         includeBorders: false,
         useSystemFonts: false,
       });
-      const png = await svgToPngPrint(svg, 124.8, 153.8);
+      const png = await svgToPngPrint(svg, 190.8, 153.8);
       const filename = `${selectedCategory || selectedEdition}-packaging-no-borders.png`;
       downloadBlob(png, filename);
     } catch (error) {

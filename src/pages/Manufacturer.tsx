@@ -101,6 +101,7 @@ const PANEL_EXPORT_LAYOUT = [
   { name: "short-side-bottom", x: 29.4, y: 124.4, width: 66, height: 29.4 },
   { name: "long-side-left", x: 0, y: 29.4, width: 29.4, height: 95 },
   { name: "long-side-right", x: 95.4, y: 29.4, width: 29.4, height: 95 },
+  { name: "lid-back", x: 124.8, y: 29.4, width: 66, height: 95 },
 ];
 
 const CARD_EXPORT_SCALE = 300 / 96;
@@ -278,11 +279,41 @@ export default function Manufacturer() {
     setIsBusy(true);
     setStatus(t.statusPackaging);
 
+    // Load fonts for packaging export
+    try {
+      const gaeguFont = new FontFace(
+        "Gaegu",
+        "url(/assets/fonts/Gaegu/Gaegu-Bold.ttf)",
+        { weight: "700" },
+      );
+      const monoFont = new FontFace(
+        "Monospace",
+        "url(/assets/fonts/monospace/Monospace.ttf)",
+        { weight: "400" },
+      );
+      const monoBoldFont = new FontFace(
+        "Monospace",
+        "url(/assets/fonts/monospace/MonospaceBold.ttf)",
+        { weight: "700" },
+      );
+      const [loadedGaegu, loadedMono, loadedMonoBold] = await Promise.all([
+        gaeguFont.load(),
+        monoFont.load(),
+        monoBoldFont.load(),
+      ]);
+      document.fonts.add(loadedGaegu);
+      document.fonts.add(loadedMono);
+      document.fonts.add(loadedMonoBold);
+    } catch (_) {
+      // Continue — fall back to CSS @font-face
+    }
+    await document.fonts.ready;
+
     try {
       const svg = await createPackagingSvg(selectedEdition, {
         useSystemFonts: false,
       });
-      const png = await svgToPngPrint(svg, 124.8, 153.8);
+      const png = await svgToPngPrint(svg, 190.8, 153.8);
       downloadBlob(png, `${selectedEdition}-packaging-whole.png`);
       setStatus(t.statusDone);
     } catch (error) {
@@ -296,6 +327,36 @@ export default function Manufacturer() {
     if (isBusy || !edition) return;
     setIsBusy(true);
     setStatus(t.statusPackaging);
+
+    // Load fonts for packaging export
+    try {
+      const gaeguFont = new FontFace(
+        "Gaegu",
+        "url(/assets/fonts/Gaegu/Gaegu-Bold.ttf)",
+        { weight: "700" },
+      );
+      const monoFont = new FontFace(
+        "Monospace",
+        "url(/assets/fonts/monospace/Monospace.ttf)",
+        { weight: "400" },
+      );
+      const monoBoldFont = new FontFace(
+        "Monospace",
+        "url(/assets/fonts/monospace/MonospaceBold.ttf)",
+        { weight: "700" },
+      );
+      const [loadedGaegu, loadedMono, loadedMonoBold] = await Promise.all([
+        gaeguFont.load(),
+        monoFont.load(),
+        monoBoldFont.load(),
+      ]);
+      document.fonts.add(loadedGaegu);
+      document.fonts.add(loadedMono);
+      document.fonts.add(loadedMonoBold);
+    } catch (_) {
+      // Continue — fall back to CSS @font-face
+    }
+    await document.fonts.ready;
 
     try {
       const svg = await createPackagingSvg(selectedEdition, {

@@ -308,6 +308,8 @@ export default function Manufacturer() {
       // Continue — fall back to CSS @font-face
     }
     await document.fonts.ready;
+    // Give fonts time to fully render in browser before canvas operations
+    await new Promise((resolve) => setTimeout(resolve, 120));
 
     try {
       const svg = await createPackagingSvg(selectedEdition, {
@@ -357,6 +359,8 @@ export default function Manufacturer() {
       // Continue — fall back to CSS @font-face
     }
     await document.fonts.ready;
+    // Give fonts time to fully render in browser before canvas operations
+    await new Promise((resolve) => setTimeout(resolve, 120));
 
     try {
       const svg = await createPackagingSvg(selectedEdition, {

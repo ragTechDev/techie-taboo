@@ -39,7 +39,7 @@ export const devopsTabooList: TabooWord[] = [
     word: "Kubernetes",
     taboo: ["K8s", "Container", "Orchestration", "Docker", "Cluster"],
     explanation:
-      "A system for automating deployment, scaling, and management of containerized applications.",
+      "A platform that automates deploying, scaling, and managing apps packaged in containers across clusters of machines.",
     category: "DevOps",
   },
   {
@@ -182,7 +182,7 @@ export const devopsTabooList: TabooWord[] = [
     word: "Service Mesh",
     taboo: ["Istio", "Microservices", "Network", "Traffic", "Communication"],
     explanation:
-      "Infrastructure layer that handles service-to-service communication in microservices.",
+      "A dedicated layer that manages how independent services talk to each other, handling retries, security, and traffic routing.",
     category: "DevOps",
   },
   {
@@ -190,7 +190,7 @@ export const devopsTabooList: TabooWord[] = [
     word: "Observability",
     taboo: ["Monitoring", "Logs", "Metrics", "Traces", "Insights"],
     explanation:
-      "The ability to understand system internal states by examining outputs.",
+      "How well you can diagnose what's happening inside a system using its logs, metrics, and traces.",
     category: "DevOps",
   },
   {
@@ -276,7 +276,7 @@ export const devopsTabooList: TabooWord[] = [
     word: "Configuration Management",
     taboo: ["Ansible", "Puppet", "Chef", "Settings", "Automation"],
     explanation:
-      "Systematically handling changes to maintain system consistency and integrity.",
+      "Automating how software settings are applied across servers so every machine stays in the intended state.",
     category: "DevOps",
   },
   {
@@ -339,7 +339,8 @@ export const devopsTabooList: TabooWord[] = [
     index: 42,
     word: "Service Level Indicator",
     taboo: ["SLI", "Metric", "Measure", "Performance", "SLO"],
-    explanation: "A quantitative measure of some aspect of service level.",
+    explanation:
+      "A measurable signal, like uptime or response time, used to evaluate how well a service is performing.",
     category: "DevOps",
   },
   {
@@ -434,7 +435,7 @@ export const devopsTabooList: TabooWord[] = [
     word: "Idempotency",
     taboo: ["Same", "Result", "Retry", "Safe", "Repeat"],
     explanation:
-      "The property where an operation produces the same result no matter how many times it's executed.",
+      "When running an operation once or a hundred times produces exactly the same outcome, making retries safe.",
     category: "DevOps",
   },
 ];

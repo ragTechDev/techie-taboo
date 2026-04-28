@@ -56,7 +56,7 @@ export const aiTabooList: TabooWord[] = [
     word: "Deep Learning",
     taboo: ["Neural", "Network", "AI", "Model", "Complex"],
     explanation:
-      "A subset of machine learning using multiple layers to progressively extract higher-level features from raw input.",
+      "A type of machine learning where many stacked layers each learn to recognize increasingly complex patterns in data.",
     category: "AI",
   },
   {
@@ -231,7 +231,7 @@ export const aiTabooList: TabooWord[] = [
     word: "Self-Attention",
     taboo: ["AI", "Transformer", "Weights", "Focus", "Model"],
     explanation:
-      "A mechanism that lets a model weigh the importance of different parts of its input when processing each element.",
+      "How a model decides which words in a sentence to focus on when figuring out the meaning of any given word.",
     category: "AI",
   },
   {
@@ -400,7 +400,7 @@ export const aiTabooList: TabooWord[] = [
     word: "Batch Normalization",
     taboo: ["Layer", "Training", "Neural", "Network", "Normalize"],
     explanation:
-      "A technique that stabilizes neural network training by normalizing inputs within each layer.",
+      "A technique that keeps values flowing through a network in a consistent range, making training faster and more stable.",
     category: "AI",
   },
   {
@@ -408,7 +408,7 @@ export const aiTabooList: TabooWord[] = [
     word: "Activation Function",
     taboo: ["Neural", "Network", "ReLU", "Sigmoid", "Layer"],
     explanation:
-      "A mathematical function that determines whether a neuron should fire in a neural network.",
+      "A function applied to each node in a network that decides how strongly it responds to its input, enabling non-linear learning.",
     category: "AI",
   },
   {
@@ -416,7 +416,7 @@ export const aiTabooList: TabooWord[] = [
     word: "Gradient Descent",
     taboo: ["Optimization", "Training", "Minimize", "Loss", "Learning"],
     explanation:
-      "An optimization algorithm that iteratively adjusts model weights to minimize prediction errors.",
+      "How a model learns by repeatedly nudging its settings in the direction that most reduces its mistakes.",
     category: "AI",
   },
 ];

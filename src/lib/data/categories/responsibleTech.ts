@@ -95,7 +95,7 @@ export const responsibleTechTabooList: TabooWord[] = [
     word: "Data Sovereignty",
     taboo: ["Control", "Ownership", "Rights", "Indigenous", "Governance"],
     explanation:
-      "The concept that data is subject to the laws of the region where it's collected.",
+      "The principle that a country's data, and the people it describes, falls under that country's own laws and control.",
     category: "Responsible Tech",
   },
   {
@@ -183,7 +183,7 @@ export const responsibleTechTabooList: TabooWord[] = [
     word: "Accessibility Standards",
     taboo: ["WCAG", "Guidelines", "Disability", "Compliance", "Requirements"],
     explanation:
-      "Technical requirements ensuring digital products work for people with disabilities.",
+      "Official guidelines that define how websites and apps must be built so people with disabilities can use them.",
     category: "Responsible Tech",
   },
   {
@@ -221,7 +221,7 @@ export const responsibleTechTabooList: TabooWord[] = [
     word: "Algorithmic Transparency",
     taboo: ["Explainable", "Open", "Understand", "AI", "Clear"],
     explanation:
-      "Making the workings and decision-making processes of algorithms understandable.",
+      "Being open about how an algorithm works and why it makes specific decisions, so it can be questioned and held accountable.",
     category: "Responsible Tech",
   },
   {
@@ -285,7 +285,7 @@ export const responsibleTechTabooList: TabooWord[] = [
     word: "Persuasive Technology",
     taboo: ["Behavior", "Change", "Influence", "Design", "Manipulate"],
     explanation:
-      "Technology designed to change attitudes or behaviors through persuasion and social influence.",
+      "Products deliberately engineered using nudges, streaks, and social cues to steer what you do or believe.",
     category: "Responsible Tech",
   },
   {
@@ -386,7 +386,7 @@ export const responsibleTechTabooList: TabooWord[] = [
     word: "Data Colonialism",
     taboo: ["Extraction", "Exploitation", "Power", "Indigenous", "Control"],
     explanation:
-      "Extracting data from communities without fair compensation or consent, similar to historical colonialism.",
+      "When powerful tech companies harvest data from communities, often poorer or indigenous ones, while those communities see none of the profit or control.",
     category: "Responsible Tech",
   },
   {
@@ -434,7 +434,7 @@ export const responsibleTechTabooList: TabooWord[] = [
     word: "Value Sensitive Design",
     taboo: ["Ethics", "Stakeholders", "Principles", "Human", "Moral"],
     explanation:
-      "Designing technology that accounts for human values throughout the development process.",
+      "A design approach that treats human values like privacy, fairness, and autonomy as core requirements, not afterthoughts.",
     category: "Responsible Tech",
   },
   {

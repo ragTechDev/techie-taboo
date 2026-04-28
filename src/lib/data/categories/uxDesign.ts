@@ -93,7 +93,7 @@ export const uxDesignTabooList: TabooWord[] = [
     word: "Figma",
     taboo: ["Design", "Tool", "Prototype", "Collaborate", "Vector"],
     explanation:
-      "A collaborative interface design tool used for creating mockups and prototypes.",
+      "A browser-based design tool where teams collaborate in real time on UI mockups and interactive prototypes.",
     category: "UX Design",
   },
   {
@@ -101,7 +101,7 @@ export const uxDesignTabooList: TabooWord[] = [
     word: "Heuristic Evaluation",
     taboo: ["Usability", "Principles", "Nielsen", "Review", "Expert"],
     explanation:
-      "Evaluating a design against established usability principles.",
+      "Expert review of an interface against established usability principles to spot friction before user testing.",
     category: "UX Design",
   },
   {
@@ -171,7 +171,7 @@ export const uxDesignTabooList: TabooWord[] = [
     word: "Typography",
     taboo: ["Font", "Text", "Typeface", "Letters", "Style"],
     explanation:
-      "The art and technique of arranging type to make written language readable and appealing.",
+      "Choosing and arranging typefaces, sizes, and spacing so text is both easy to read and visually compelling.",
     category: "UX Design",
   },
   {
@@ -265,7 +265,7 @@ export const uxDesignTabooList: TabooWord[] = [
     word: "Hamburger Menu",
     taboo: ["Three", "Lines", "Icon", "Navigation", "Mobile"],
     explanation:
-      "A three-line icon that opens a navigation menu, commonly used on mobile.",
+      "A three-line icon that hides a full navigation menu behind a tap, keeping mobile screens uncluttered.",
     category: "UX Design",
   },
   {
@@ -318,7 +318,7 @@ export const uxDesignTabooList: TabooWord[] = [
     word: "Design Thinking",
     taboo: ["Process", "Empathize", "Ideate", "Prototype", "Test"],
     explanation:
-      "A problem-solving approach focused on understanding users and iterating solutions.",
+      "A five-stage creative process (empathize, define, ideate, prototype, test) that keeps real user needs at the center of every solution.",
     category: "UX Design",
   },
   {
@@ -334,7 +334,7 @@ export const uxDesignTabooList: TabooWord[] = [
     word: "Atomic Design",
     taboo: ["Components", "Atoms", "Molecules", "Organisms", "System"],
     explanation:
-      "A methodology for creating design systems with reusable components.",
+      "Building interfaces from the smallest reusable pieces like buttons, forms, and sections, so the whole product stays consistent and easy to update.",
     category: "UX Design",
   },
   {

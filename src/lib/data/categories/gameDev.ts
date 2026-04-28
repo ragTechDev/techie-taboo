@@ -23,7 +23,7 @@ export const gameDevTabooList: TabooWord[] = [
     word: "Game Loop",
     taboo: ["Update", "Render", "Frame", "Cycle", "Tick"],
     explanation:
-      "The continuous process that runs the game, handling input, updating state, and drawing graphics.",
+      "The continuous cycle that reads player input, updates game state, and renders each frame, thousands of times per second.",
     category: "Game Dev",
   },
   {
@@ -55,7 +55,7 @@ export const gameDevTabooList: TabooWord[] = [
     word: "Rigging",
     taboo: ["Skeleton", "Bones", "Animation", "3D", "Character"],
     explanation:
-      "Creating a skeletal structure for a 3D model so it can be animated and moved.",
+      "Building an internal skeleton of bones inside a 3D model so animators can pose and move it naturally.",
     category: "Game Dev",
   },
   {
@@ -87,7 +87,7 @@ export const gameDevTabooList: TabooWord[] = [
     word: "Shader",
     taboo: ["Graphics", "GPU", "Rendering", "Visual", "Effect"],
     explanation:
-      "A program that controls how surfaces and lighting appear in a game's graphics.",
+      "A GPU program that calculates exactly how light, color, and texture appear on every surface in the scene.",
     category: "Game Dev",
   },
   {
@@ -119,7 +119,7 @@ export const gameDevTabooList: TabooWord[] = [
     word: "Procedural Generation",
     taboo: ["Random", "Algorithm", "Minecraft", "Automatic", "Create"],
     explanation:
-      "Using algorithms to automatically create game content like levels or terrain instead of designing by hand.",
+      "Letting code generate game content like levels, terrain, and dungeons on the fly rather than hand-crafting every piece.",
     category: "Game Dev",
   },
   {
@@ -143,7 +143,7 @@ export const gameDevTabooList: TabooWord[] = [
     word: "Mesh",
     taboo: ["3D", "Model", "Polygon", "Vertices", "Geometry"],
     explanation:
-      "A collection of vertices, edges, and faces that defines the shape of a 3D object.",
+      "The web of connected points, edges, and flat faces that together form the 3D shape of any object in a game.",
     category: "Game Dev",
   },
   {
@@ -223,7 +223,7 @@ export const gameDevTabooList: TabooWord[] = [
     word: "Culling",
     taboo: ["Hide", "Optimize", "Frustum", "Performance", "Render"],
     explanation:
-      "Not rendering objects that aren't visible to the camera to improve performance.",
+      "Skipping the drawing of objects outside the camera's view or hidden behind walls to save GPU work.",
     category: "Game Dev",
   },
   {
@@ -237,7 +237,7 @@ export const gameDevTabooList: TabooWord[] = [
       "Performance",
     ],
     explanation:
-      "Using simpler versions of 3D models when they're far away to save processing power.",
+      "Automatically swapping a detailed 3D model for a simpler one as it gets further away, so the GPU isn't wasted on distant detail.",
     category: "Game Dev",
   },
   {

@@ -56,7 +56,7 @@ export const generalTabooList: TabooWord[] = [
     word: "Data Science",
     taboo: ["Analysis", "Statistics", "Algorithms", "AI", "Model"],
     explanation:
-      "The field of extracting meaningful insights from large amounts of raw facts using mathematical and computational techniques.",
+      "The discipline of finding patterns and answers in large datasets using statistics, code, and domain knowledge.",
     category: "General",
   },
   {
@@ -80,7 +80,7 @@ export const generalTabooList: TabooWord[] = [
     word: "Development Operations",
     taboo: ["Software", "Lifecycle", "Pipeline", "CI/CD", "Infrastructure"],
     explanation:
-      "A culture and practice that combines programmers and IT operations to deliver applications faster and more reliably.",
+      "A working style where software builders and the teams who run systems collaborate to ship and update products continuously.",
     category: "General",
   },
   {
@@ -384,7 +384,7 @@ export const generalTabooList: TabooWord[] = [
     word: "Computer Science",
     taboo: ["Degree", "Study", "University", "Major", "Programming"],
     explanation:
-      "The academic field focused on computation, algorithms, and how computers work.",
+      "The academic study of how computers solve problems, from the theory of what's computable to how software and hardware work.",
     category: "General",
   },
   {
@@ -480,7 +480,7 @@ export const generalTabooList: TabooWord[] = [
     word: "Incognito Mode",
     taboo: ["Private", "Browser", "History", "Secret", "Anonymous"],
     explanation:
-      "A browsing mode that doesn't save your search history, cookies, or site data locally.",
+      "A browser mode that clears your browsing history, cookies, and form data when you close the window.",
     category: "General",
   },
   {
@@ -488,7 +488,7 @@ export const generalTabooList: TabooWord[] = [
     word: "Non-fungible Token",
     taboo: ["Digital", "Asset", "Bitcoin", "Cryptocurrency", "Blockchain"],
     explanation:
-      "A unique digital asset stored on a blockchain that proves ownership of a specific item.",
+      "A one-of-a-kind digital certificate recorded on a shared ledger, used to prove you own a specific digital item.",
     category: "General",
   },
   {
@@ -655,7 +655,7 @@ export const generalTabooList: TabooWord[] = [
     word: "Blockchain",
     taboo: ["Distributed", "Ledger", "Cryptocurrency", "Contract", "Bitcoin"],
     explanation:
-      "A distributed ledger that records transactions across many computers in a tamper-resistant way.",
+      "A shared digital record spread across many computers, making it nearly impossible to alter past entries.",
     category: "General",
   },
   {
@@ -757,7 +757,7 @@ export const generalTabooList: TabooWord[] = [
     word: "Quantum Computing",
     taboo: ["Quantum", "Bit", "Superposition", "Entanglement", "Gate"],
     explanation:
-      "Computing that uses quantum mechanics to process information far faster than classical computers.",
+      "A type of computing that exploits subatomic physics to tackle certain problems millions of times faster than today's computers.",
     category: "General",
   },
   {

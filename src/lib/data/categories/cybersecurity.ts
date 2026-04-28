@@ -39,7 +39,7 @@ export const cybersecurityTabooList: TabooWord[] = [
     word: "Ransomware",
     taboo: ["Encrypt", "Malware", "Payment", "Bitcoin", "Lock"],
     explanation:
-      "Malicious software that encrypts files and demands payment for their release.",
+      "Malware that locks your files with encryption and demands a ransom to restore access.",
     category: "Cybersecurity",
   },
   {
@@ -55,7 +55,7 @@ export const cybersecurityTabooList: TabooWord[] = [
     word: "SQL Injection",
     taboo: ["Database", "Attack", "Query", "Vulnerability", "Code"],
     explanation:
-      "Inserting malicious code into database queries to access or manipulate data.",
+      "Sneaking malicious commands into a database query to read, modify, or delete data it shouldn't touch.",
     category: "Cybersecurity",
   },
   {
@@ -63,7 +63,7 @@ export const cybersecurityTabooList: TabooWord[] = [
     word: "Cross-Site Scripting",
     taboo: ["XSS", "JavaScript", "Injection", "Browser", "Attack"],
     explanation:
-      "Injecting malicious scripts into websites viewed by other users.",
+      "Planting malicious scripts in a trusted website so they silently run in other users' browsers.",
     category: "Cybersecurity",
   },
   {
@@ -87,7 +87,7 @@ export const cybersecurityTabooList: TabooWord[] = [
     word: "Zero-Day Exploit",
     taboo: ["Vulnerability", "Unknown", "Patch", "Attack", "Unpatched"],
     explanation:
-      "An attack that exploits a previously unknown software vulnerability.",
+      "An attack that exploits a software flaw the vendor doesn't know about yet, leaving no time for a fix.",
     category: "Cybersecurity",
   },
   {
@@ -126,7 +126,7 @@ export const cybersecurityTabooList: TabooWord[] = [
     word: "Security Information and Event Management",
     taboo: ["SIEM", "Logs", "Analysis", "Correlation", "Alert"],
     explanation:
-      "Software that aggregates and analyzes security data from across an organization.",
+      "A system that collects and correlates security logs across an organization to detect threats in real time.",
     category: "Cybersecurity",
   },
   {
@@ -206,7 +206,7 @@ export const cybersecurityTabooList: TabooWord[] = [
     word: "Botnet",
     taboo: ["Zombies", "Network", "Infected", "Control", "DDoS"],
     explanation:
-      "A network of infected computers controlled remotely to perform malicious tasks.",
+      "Thousands of malware-infected computers secretly hijacked and coordinated remotely to attack or spam at scale.",
     category: "Cybersecurity",
   },
   {
@@ -308,7 +308,7 @@ export const cybersecurityTabooList: TabooWord[] = [
     word: "Public Key Infrastructure",
     taboo: ["PKI", "Certificate", "Encryption", "Digital", "Authority"],
     explanation:
-      "A framework for managing digital certificates and public-key encryption.",
+      "The system of trusted authorities and digital certificates that makes encrypted, verified internet communication possible.",
     category: "Cybersecurity",
   },
   {
@@ -316,7 +316,7 @@ export const cybersecurityTabooList: TabooWord[] = [
     word: "Digital Signature",
     taboo: ["Verify", "Authentic", "Certificate", "Sign", "Cryptographic"],
     explanation:
-      "A mathematical scheme for verifying the authenticity and integrity of digital messages.",
+      "A cryptographic stamp on a file or message that proves who sent it and that it hasn't been tampered with.",
     category: "Cybersecurity",
   },
   {
@@ -324,7 +324,7 @@ export const cybersecurityTabooList: TabooWord[] = [
     word: "Hashing",
     taboo: ["Algorithm", "One-way", "MD5", "SHA", "Digest"],
     explanation:
-      "Converting data into a fixed-size string of characters that can't be reversed.",
+      "Running data through a one-way function that produces a unique fixed-length fingerprint, irreversible by design.",
     category: "Cybersecurity",
   },
   {

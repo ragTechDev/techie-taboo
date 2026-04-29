@@ -32,7 +32,7 @@ export const productManagementTabooList: TabooWord[] = [
     word: "Story Points",
     taboo: ["Estimate", "Effort", "Complexity", "Agile", "Fibonacci"],
     explanation:
-      "A unit of measure for expressing the relative difficulty of completing a piece of work.",
+      "Relative effort scores teams use to size work by complexity, not hours, so no one is held to false precision.",
     category: "Product Management",
   },
   {
@@ -88,7 +88,7 @@ export const productManagementTabooList: TabooWord[] = [
     word: "Technical Debt",
     taboo: ["Code", "Refactor", "Shortcuts", "Maintenance", "Quality"],
     explanation:
-      "The implied cost of rework caused by choosing quick solutions now instead of better approaches that take longer.",
+      "The hidden future cost of taking shortcuts: the code works now but gets harder and riskier to change later.",
     category: "Product Management",
   },
   {
@@ -153,7 +153,7 @@ export const productManagementTabooList: TabooWord[] = [
     word: "Product Sense",
     taboo: ["Intuition", "Judgment", "Vision", "Understanding", "Instinct"],
     explanation:
-      "The intuition to understand what makes a product great and what users truly need.",
+      "The ability to judge what a product should do, why users would care, and what's worth building next.",
     category: "Product Management",
   },
   {
@@ -361,7 +361,7 @@ export const productManagementTabooList: TabooWord[] = [
     word: "Engagement Metrics",
     taboo: ["Active", "Users", "Retention", "Analytics", "KPI"],
     explanation:
-      "Measurements that track how actively and frequently users interact with a product.",
+      "Numbers that reveal whether users are genuinely engaged: how often they return, click, and do meaningful things.",
     category: "Product Management",
   },
   {

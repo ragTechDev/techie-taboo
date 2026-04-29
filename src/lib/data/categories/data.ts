@@ -31,7 +31,7 @@ export const dataTabooList: TabooWord[] = [
     word: "Columnar Database",
     taboo: ["Column", "Storage", "Analytics", "Compression", "Query"],
     explanation:
-      "A database that stores data by column rather than row, optimized for analytical queries.",
+      "A database that groups values by column, making it far faster to scan and summarize millions of records.",
     category: "Data",
   },
   {
@@ -47,7 +47,7 @@ export const dataTabooList: TabooWord[] = [
     word: "Data Lake",
     taboo: ["Storage", "Raw", "Unstructured", "Repository", "Hadoop"],
     explanation:
-      "A large storage repository that holds raw data in its native format until needed for analysis.",
+      "A massive, low-cost store for raw data of any shape, kept as-is until someone needs to process or analyze it.",
     category: "Data",
   },
   {
@@ -55,7 +55,7 @@ export const dataTabooList: TabooWord[] = [
     word: "Data Lineage",
     taboo: ["Tracking", "Origin", "Flow", "Metadata", "Audit"],
     explanation:
-      "Tracking the origin, movement, and transformation of data throughout its lifecycle.",
+      "A full audit trail showing where data came from, how it changed, and where it ended up.",
     category: "Data",
   },
   {
@@ -111,7 +111,7 @@ export const dataTabooList: TabooWord[] = [
     word: "Elasticsearch",
     taboo: ["Search", "Engine", "Index", "Query", "Document"],
     explanation:
-      "A distributed search and analytics engine designed for fast full-text search.",
+      "A tool for searching and analyzing large volumes of text or log data almost instantly, across many servers.",
     category: "Data",
   },
   {
@@ -159,7 +159,7 @@ export const dataTabooList: TabooWord[] = [
     word: "Kafka",
     taboo: ["Stream", "Message", "Broker", "Topic", "Publish"],
     explanation:
-      "An open-source distributed event streaming platform used for high-throughput data pipelines.",
+      "A messaging system that reliably moves huge volumes of real-time events between services at massive scale.",
     category: "Data",
   },
   {
@@ -167,7 +167,7 @@ export const dataTabooList: TabooWord[] = [
     word: "Data Lakehouse",
     taboo: ["Databricks", "Warehouse", "Lake", "Delta", "Analytics"],
     explanation:
-      "An architecture combining the flexibility of a data lake with the structure of a data warehouse.",
+      "A storage system that accepts raw data of any kind yet also enforces structure for reliable, fast querying.",
     category: "Data",
   },
   {
@@ -238,7 +238,7 @@ export const dataTabooList: TabooWord[] = [
     word: "RabbitMQ",
     taboo: ["Topic", "Bunny", "Broker", "Exchange", "Publish"],
     explanation:
-      "An open-source message broker that routes messages between applications using queuing.",
+      "A middleman service that receives messages from one application and delivers them to another, reliably and in order.",
     category: "Data",
   },
   {
@@ -246,7 +246,7 @@ export const dataTabooList: TabooWord[] = [
     word: "Redis",
     taboo: ["Database", "Cache", "Key-Value", "Access", "Memory"],
     explanation:
-      "An in-memory data store used for caching, session management, and real-time applications.",
+      "A data store that keeps everything in RAM, making reads and writes dramatically faster than a traditional database.",
     category: "Data",
   },
   {
@@ -262,7 +262,7 @@ export const dataTabooList: TabooWord[] = [
     word: "Sharding",
     taboo: ["Database", "Partition", "Horizontal", "Split", "Distributed"],
     explanation:
-      "Splitting a database horizontally across multiple servers to distribute load and improve scalability.",
+      "Splitting a database across multiple servers by rows so each server handles only its share of the load.",
     category: "Data",
   },
   {
@@ -270,7 +270,7 @@ export const dataTabooList: TabooWord[] = [
     word: "SQLite",
     taboo: ["Database", "SQL", "File", "Lightweight", "Table"],
     explanation:
-      "A lightweight, serverless relational database engine embedded directly into applications.",
+      "A fully featured relational database packed into a single file, requiring no separate server to run.",
     category: "Data",
   },
   {
@@ -302,7 +302,7 @@ export const dataTabooList: TabooWord[] = [
     word: "Star Schema",
     taboo: ["Database", "Design", "Fact", "Dimension", "Model"],
     explanation:
-      "A data warehouse schema with a central fact table connected to dimension tables.",
+      "A reporting database layout where one central table of measurable events links out to tables of descriptive context.",
     category: "Data",
   },
   {
@@ -310,7 +310,7 @@ export const dataTabooList: TabooWord[] = [
     word: "Snowflake Schema",
     taboo: ["Database", "Design", "Normalized", "Dimension", "Model"],
     explanation:
-      "A variation of the star schema where dimension tables are further normalized.",
+      "A reporting layout like the star schema, but descriptive tables are broken into sub-tables to reduce duplication.",
     category: "Data",
   },
   {
@@ -318,7 +318,7 @@ export const dataTabooList: TabooWord[] = [
     word: "OLAP",
     taboo: ["Analytical", "Cube", "Processing", "Query", "Multidimensional"],
     explanation:
-      "Online Analytical Processing, designed for complex queries and data analysis over large datasets.",
+      "A database approach built for slicing and summarizing large historical datasets to answer complex business questions.",
     category: "Data",
   },
   {
@@ -326,7 +326,7 @@ export const dataTabooList: TabooWord[] = [
     word: "OLTP",
     taboo: ["Transaction", "Processing", "Database", "Real-time", "Insert"],
     explanation:
-      "Online Transaction Processing, optimized for fast, reliable handling of day-to-day transactions.",
+      "A database approach built to handle many small, concurrent read-write operations, like purchases or logins, reliably and fast.",
     category: "Data",
   },
   {

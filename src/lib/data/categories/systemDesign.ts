@@ -55,7 +55,7 @@ export const systemDesignTabooList: TabooWord[] = [
     word: "Message Queue",
     taboo: ["Kafka", "RabbitMQ", "Async", "Publish", "Subscribe"],
     explanation:
-      "A system that allows services to communicate asynchronously by passing messages through a buffer.",
+      "A middleman that holds messages so services can send and receive at their own pace, without waiting on each other.",
     category: "System Design",
   },
   {
@@ -79,7 +79,7 @@ export const systemDesignTabooList: TabooWord[] = [
     word: "Consistent Hashing",
     taboo: ["Ring", "Node", "Distribute", "Algorithm", "Scale"],
     explanation:
-      "A technique for distributing data across nodes that minimizes reassignment when nodes are added or removed.",
+      "A data distribution strategy where adding or removing servers reshuffles only a small fraction of data, not everything.",
     category: "System Design",
   },
   {
@@ -87,7 +87,7 @@ export const systemDesignTabooList: TabooWord[] = [
     word: "CAP Theorem",
     taboo: ["Brewer", "Trade-off", "Distributed", "Database", "Network"],
     explanation:
-      "The principle that a distributed system can only guarantee two of consistency, availability, and partition tolerance at once.",
+      "A distributed systems rule: when a network split occurs, you must choose between returning correct data or staying online, not both.",
     category: "System Design",
   },
   {
@@ -134,7 +134,7 @@ export const systemDesignTabooList: TabooWord[] = [
     word: "Service Discovery",
     taboo: ["Registry", "Find", "Locate", "Microservices", "Consul"],
     explanation:
-      "The automatic detection of services and their network locations in a distributed system.",
+      "How services automatically find and connect to each other at runtime, without hardcoded addresses.",
     category: "System Design",
   },
   {
@@ -166,7 +166,7 @@ export const systemDesignTabooList: TabooWord[] = [
     word: "Distributed Lock",
     taboo: ["Mutex", "Coordination", "Sync", "Redis", "ZooKeeper"],
     explanation:
-      "A mechanism to ensure only one process accesses a shared resource at a time across multiple nodes.",
+      "A coordination tool that ensures only one server in a cluster can perform a critical operation at a time.",
     category: "System Design",
   },
   {
@@ -220,7 +220,7 @@ export const systemDesignTabooList: TabooWord[] = [
     word: "Gossip Protocol",
     taboo: ["Spread", "Rumor", "Distributed", "Node", "Communication"],
     explanation:
-      "A peer-to-peer communication method where nodes share information with random neighbors.",
+      "A way for servers to spread updates across a cluster by whispering to random neighbors, until everyone knows.",
     category: "System Design",
   },
   {
@@ -268,7 +268,7 @@ export const systemDesignTabooList: TabooWord[] = [
     word: "Sidecar Pattern",
     taboo: ["Container", "Proxy", "Kubernetes", "Service", "Mesh"],
     explanation:
-      "Deploying a helper container alongside a main service container to handle cross-cutting concerns.",
+      "A lightweight helper process deployed beside a main service to handle shared concerns like logging, auth, or networking.",
     category: "System Design",
   },
   {
@@ -316,7 +316,7 @@ export const systemDesignTabooList: TabooWord[] = [
     word: "Stateless",
     taboo: ["Storage", "Memory", "Server", "Session", "Scalable"],
     explanation:
-      "A design where each request contains all the information needed to process it, with no server-side session.",
+      "A server design where every request is self-contained: the server remembers nothing between calls, making it easy to scale.",
     category: "System Design",
   },
   {
@@ -324,7 +324,7 @@ export const systemDesignTabooList: TabooWord[] = [
     word: "Stateful",
     taboo: ["Remember", "Session", "Memory", "Server", "Sticky"],
     explanation:
-      "A design where the server maintains session data about the client between requests.",
+      "A server design where the server remembers past interactions with a client, enabling richer but harder-to-scale sessions.",
     category: "System Design",
   },
   {
@@ -404,7 +404,7 @@ export const systemDesignTabooList: TabooWord[] = [
     word: "Webhook",
     taboo: ["Callback", "HTTP", "Event", "Notify", "Push"],
     explanation:
-      "An HTTP callback that sends data to a URL when a specific event occurs.",
+      "A way for one system to instantly notify another when something happens, by sending data to a pre-configured URL.",
     category: "System Design",
   },
   {

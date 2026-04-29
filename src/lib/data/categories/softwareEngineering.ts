@@ -14,7 +14,7 @@ export const softwareEngineeringTabooList: TabooWord[] = [
     word: "Angular",
     taboo: ["JavaScript", "Framework", "Component", "UI", "Frontend"],
     explanation:
-      "A platform for building web applications using TypeScript and a component-based architecture.",
+      "Google's web framework for building structured, large-scale apps by wiring together reusable UI building blocks.",
     category: "Software Engineering",
   },
   {
@@ -38,7 +38,7 @@ export const softwareEngineeringTabooList: TabooWord[] = [
     word: "Authorization",
     taboo: ["Access", "Control", "Permission", "Secure", "Verify"],
     explanation:
-      "The process of determining what resources a user is allowed to access after they've been authenticated.",
+      "Deciding what a verified user is allowed to do or see, distinct from confirming who they are.",
     category: "Software Engineering",
   },
   {
@@ -134,7 +134,7 @@ export const softwareEngineeringTabooList: TabooWord[] = [
     word: "Compliance",
     taboo: ["Regulation", "Law", "Policy", "Adherence", "Rules"],
     explanation:
-      "Adhering to laws, regulations, and standards that govern how software and data are managed.",
+      "Meeting legal and industry rules about how software must handle, store, and protect data.",
     category: "Software Engineering",
   },
   {
@@ -188,7 +188,7 @@ export const softwareEngineeringTabooList: TabooWord[] = [
     word: "Stack Trace",
     taboo: ["Error", "Call", "Frame", "Exception", "Line Number"],
     explanation:
-      "A report of the active function calls at a specific point during a program's execution, useful for diagnosing errors.",
+      "A structured error report showing the exact chain of function calls that led to a crash.",
     category: "Software Engineering",
   },
   {
@@ -240,7 +240,7 @@ export const softwareEngineeringTabooList: TabooWord[] = [
       "Subproblem",
     ],
     explanation:
-      "An algorithmic technique that solves complex problems by breaking them into overlapping subproblems and storing results to avoid redundant computation.",
+      "Solving hard problems efficiently by breaking them into smaller pieces and caching each answer to avoid doing the same work twice.",
     category: "Software Engineering",
   },
   {
@@ -280,7 +280,7 @@ export const softwareEngineeringTabooList: TabooWord[] = [
     word: "Express",
     taboo: ["Node.js", "Framework", "Server", "API", "Route"],
     explanation:
-      "A minimal and flexible Node.js web application framework for building APIs and web servers.",
+      "A lightweight toolkit for Node.js that makes it easy to define routes and build web servers or APIs.",
     category: "Software Engineering",
   },
   {
@@ -320,7 +320,7 @@ export const softwareEngineeringTabooList: TabooWord[] = [
     word: "Hacker",
     taboo: ["Cracker", "Security", "Threat", "Online", "Malicious"],
     explanation:
-      "A person who uses technical skills to find vulnerabilities in systems, either maliciously or ethically to improve security.",
+      "Someone who probes systems for weaknesses, either to exploit them or, ethically, to help fix them before others do.",
     category: "Software Engineering",
   },
   {
@@ -328,7 +328,7 @@ export const softwareEngineeringTabooList: TabooWord[] = [
     word: "Hook",
     taboo: ["React", "Function", "State", "Effect", "Component"],
     explanation:
-      "A function or mechanism that intercepts calls or events to customize or extend behavior in a system or framework.",
+      "A built-in attachment point that lets you run custom code when a specific event or action occurs in a system.",
     category: "Software Engineering",
   },
   {
@@ -368,7 +368,7 @@ export const softwareEngineeringTabooList: TabooWord[] = [
     word: "Incident Management",
     taboo: ["Response", "Plan", "Recovery", "Outage", "Ticket"],
     explanation:
-      "The process of identifying, responding to, and resolving disruptions in a system to restore normal service quickly.",
+      "The structured process of detecting, triaging, and fixing system outages to get things back to normal as fast as possible.",
     category: "Software Engineering",
   },
   {
@@ -432,7 +432,7 @@ export const softwareEngineeringTabooList: TabooWord[] = [
     word: "Kubernetes",
     taboo: ["Container", "Orchestration", "Cluster", "Pods", "Deploy"],
     explanation:
-      "An open-source system for automating deployment, scaling, and management of containerized applications.",
+      "A system that automatically runs, scales, and restarts containerized apps across a cluster of machines.",
     category: "Software Engineering",
   },
   {
@@ -480,7 +480,7 @@ export const softwareEngineeringTabooList: TabooWord[] = [
     word: "Microservices",
     taboo: ["Architecture", "Service", "API", "Distributed", "Component"],
     explanation:
-      "An architecture style where an application is built as small, independent services that communicate over a network.",
+      "An app broken into small, independently deployable services that each handle one specific responsibility.",
     category: "Software Engineering",
   },
   {
@@ -488,7 +488,7 @@ export const softwareEngineeringTabooList: TabooWord[] = [
     word: "MongoDB",
     taboo: ["Database", "NoSQL", "Document", "Collection", "Query"],
     explanation:
-      "A document-oriented NoSQL database that stores data in flexible JSON-like documents instead of tables.",
+      "A database that stores records as flexible JSON-like blobs rather than rigid rows and columns.",
     category: "Software Engineering",
   },
   {
@@ -528,7 +528,7 @@ export const softwareEngineeringTabooList: TabooWord[] = [
     word: "Object Oriented Programming",
     taboo: ["Class", "Polymorphism", "Inheritance", "Encapsulation", "Method"],
     explanation:
-      "A programming paradigm that organizes code into objects with properties and behaviors, promoting reuse and modularity.",
+      "A coding style that models real-world things as objects bundling their data and actions together, making code easier to reuse.",
     category: "Software Engineering",
   },
   {
@@ -608,7 +608,7 @@ export const softwareEngineeringTabooList: TabooWord[] = [
     word: "Quantization",
     taboo: ["AI", "Model", "Compression", "Weights", "Size"],
     explanation:
-      "Reducing the precision of a model's weights to make it smaller and faster to run, with minimal loss in accuracy.",
+      "Shrinking an AI model by storing its internal numbers less precisely, trading a tiny accuracy drop for much faster and cheaper inference.",
     category: "Software Engineering",
   },
   {
@@ -640,7 +640,7 @@ export const softwareEngineeringTabooList: TabooWord[] = [
     word: "Rebase",
     taboo: ["Git", "Merge", "Branch", "Commit", "History"],
     explanation:
-      "Integrating changes from one branch onto another by reapplying commits on top of the target branch for a cleaner history.",
+      "Replaying your commits on top of another branch so the project history reads as one clean, unbroken line.",
     category: "Software Engineering",
   },
   {
@@ -648,7 +648,7 @@ export const softwareEngineeringTabooList: TabooWord[] = [
     word: "Recursion",
     taboo: ["Function", "Call", "Itself", "Loop", "Repeat"],
     explanation:
-      "A technique where a function calls itself to solve smaller instances of the same problem until a base case is reached.",
+      "When a function solves a problem by calling itself on a smaller version of it, repeating until the answer is trivial.",
     category: "Software Engineering",
   },
   {
@@ -672,7 +672,7 @@ export const softwareEngineeringTabooList: TabooWord[] = [
     word: "Reinforcement Learning",
     taboo: ["AI", "Reward", "Agent", "Environment", "Policy"],
     explanation:
-      "A machine learning approach where an agent learns by receiving rewards or penalties for actions taken in an environment.",
+      "Training an AI by letting it try things and giving it points for good outcomes, gradually learning the best strategy.",
     category: "Software Engineering",
   },
   {
@@ -712,7 +712,7 @@ export const softwareEngineeringTabooList: TabooWord[] = [
     word: "Round Robin",
     taboo: ["Schedule", "Equal", "Rotate", "Turn", "Load Balancing"],
     explanation:
-      "A scheduling method that distributes tasks evenly across servers or processes in rotation, ensuring equal share.",
+      "A load-distribution strategy that cycles through servers in order, giving each one equal turns handling requests.",
     category: "Software Engineering",
   },
   {
@@ -832,7 +832,7 @@ export const softwareEngineeringTabooList: TabooWord[] = [
     word: "Thread",
     taboo: ["Process", "Concurrent", "Execution", "Parallel", "Lightweight"],
     explanation:
-      "A sequence of instructions that a processor can execute independently within a program, enabling concurrency.",
+      "A lightweight unit of work inside a program that a processor can run independently, letting multiple tasks progress at once.",
     category: "Software Engineering",
   },
   {

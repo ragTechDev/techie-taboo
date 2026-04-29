@@ -15,7 +15,7 @@ export const dsaTabooList: TabooWord[] = [
     word: "Linked List",
     taboo: ["Node", "Pointer", "Chain", "Next", "Head"],
     explanation:
-      "A sequence of nodes where each node holds data and a pointer to the next node.",
+      "A chain of elements where each one links to the next, making insertions and deletions fast anywhere in the sequence.",
     category: "Data Structures & Algorithms",
   },
   {
@@ -63,7 +63,7 @@ export const dsaTabooList: TabooWord[] = [
     word: "Heap",
     taboo: ["Sort", "Binary", "Parent", "Child", "Min"],
     explanation:
-      "A tree-based structure where each parent is greater or lesser than its children, used in priority queues.",
+      "A tree where every parent is always larger (or smaller) than its children, great for always knowing the top-priority item.",
     category: "Data Structures & Algorithms",
   },
   {
@@ -71,7 +71,7 @@ export const dsaTabooList: TabooWord[] = [
     word: "Trie",
     taboo: ["Prefix", "Tree", "String", "Search", "Dictionary"],
     explanation:
-      "A tree structure used for efficient storage and retrieval of strings, commonly used in search.",
+      "A branching structure where each path from root to leaf spells out a word, enabling lightning-fast word lookups and autocomplete.",
     category: "Data Structures & Algorithms",
   },
   {
@@ -191,7 +191,7 @@ export const dsaTabooList: TabooWord[] = [
     word: "Big O Notation",
     taboo: ["Complexity", "Time", "Space", "Asymptotic", "Performance"],
     explanation:
-      "A mathematical notation describing how an algorithm's time or space grows with input size.",
+      "A way to describe how an algorithm's speed or memory usage scales as the amount of data it processes grows.",
     category: "Data Structures & Algorithms",
   },
   {
@@ -199,7 +199,7 @@ export const dsaTabooList: TabooWord[] = [
     word: "Pointer",
     taboo: ["Memory", "Address", "Reference", "Variable", "Location"],
     explanation:
-      "A variable that stores the memory address of another variable.",
+      "A value that holds the exact location of data in memory, letting you indirectly read or modify that data.",
     category: "Data Structures & Algorithms",
   },
   {
@@ -207,7 +207,7 @@ export const dsaTabooList: TabooWord[] = [
     word: "Doubly Linked List",
     taboo: ["Node", "Previous", "Next", "Chain", "Bidirectional"],
     explanation:
-      "A linked list where each node has pointers to both the next and previous nodes.",
+      "A chain of elements where each one links both forward and backward, allowing traversal in either direction.",
     category: "Data Structures & Algorithms",
   },
   {
@@ -239,7 +239,7 @@ export const dsaTabooList: TabooWord[] = [
     word: "Red-Black Tree",
     taboo: ["Balanced", "Binary", "Color", "Property", "Self"],
     explanation:
-      "A self-balancing binary search tree that maintains balance through color properties.",
+      "A sorted tree that labels each node red or black and uses those labels to keep itself balanced, guaranteeing fast lookups.",
     category: "Data Structures & Algorithms",
   },
   {
@@ -247,7 +247,7 @@ export const dsaTabooList: TabooWord[] = [
     word: "B-Tree",
     taboo: ["Balanced", "Multi", "Database", "Disk", "Keys"],
     explanation:
-      "A self-balancing tree structure optimized for reading and writing large blocks of data.",
+      "A sorted tree where each node can hold many keys at once, designed to minimize slow disk reads in databases and file systems.",
     category: "Data Structures & Algorithms",
   },
   {
@@ -285,7 +285,7 @@ export const dsaTabooList: TabooWord[] = [
       "Linear",
     ],
     explanation:
-      "A linear ordering of nodes in a directed acyclic graph where each node comes before its dependents.",
+      "Ordering tasks so every dependency comes before the work that needs it, like a build order where prerequisites always come first.",
     category: "Data Structures & Algorithms",
   },
   {
@@ -293,7 +293,7 @@ export const dsaTabooList: TabooWord[] = [
     word: "Minimum Spanning Tree",
     taboo: ["Graph", "Kruskal", "Prim", "Edge", "Weight"],
     explanation:
-      "A subset of edges in a graph that connects all vertices with the minimum total weight.",
+      "The cheapest set of connections that links every node in a network without any loops, used in routing and network design.",
     category: "Data Structures & Algorithms",
   },
   {
@@ -301,7 +301,7 @@ export const dsaTabooList: TabooWord[] = [
     word: "AVL Tree",
     taboo: ["Balanced", "Binary", "Rotation", "Height", "Self"],
     explanation:
-      "A self-balancing binary search tree that maintains balance by tracking height differences.",
+      "A sorted tree that automatically reshuffles itself whenever one side grows too tall, keeping lookups consistently fast.",
     category: "Data Structures & Algorithms",
   },
   {
@@ -333,7 +333,7 @@ export const dsaTabooList: TabooWord[] = [
     word: "Two Pointers",
     taboo: ["Technique", "Array", "Left", "Right", "Move"],
     explanation:
-      "A technique using two indices that move through data from different positions to solve problems efficiently.",
+      "Scanning a list with two cursors simultaneously, from each end or at different speeds, to find pairs or ranges in one pass.",
     category: "Data Structures & Algorithms",
   },
   {
@@ -349,7 +349,7 @@ export const dsaTabooList: TabooWord[] = [
     word: "Kadane's Algorithm",
     taboo: ["Maximum", "Subarray", "Sum", "Dynamic", "Contiguous"],
     explanation:
-      "An algorithm for finding the maximum sum contiguous subarray in linear time.",
+      "A single-pass algorithm that finds the consecutive run of numbers in a list whose values add up to the greatest total.",
     category: "Data Structures & Algorithms",
   },
   {
@@ -365,7 +365,7 @@ export const dsaTabooList: TabooWord[] = [
     word: "Hashing",
     taboo: ["Function", "Key", "Table", "Collision", "Map"],
     explanation:
-      "Converting data of any size into a fixed-size value using a hash function.",
+      "Transforming any piece of data into a short, fixed-length fingerprint that enables near-instant lookups and data integrity checks.",
     category: "Data Structures & Algorithms",
   },
   {
@@ -421,7 +421,7 @@ export const dsaTabooList: TabooWord[] = [
     word: "Suffix Array",
     taboo: ["String", "Index", "Text", "Search", "Pattern"],
     explanation:
-      "An array of all suffixes of a string sorted lexicographically, used for fast string searches.",
+      "A sorted list of every possible tail-end of a string, enabling very fast pattern searches across large texts.",
     category: "Data Structures & Algorithms",
   },
 ];

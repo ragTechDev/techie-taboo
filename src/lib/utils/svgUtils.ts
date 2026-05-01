@@ -145,6 +145,67 @@ export async function inlineSvgImages(svgMarkup: string): Promise<string> {
   return new XMLSerializer().serializeToString(doc.documentElement);
 }
 
+// High-resolution version that scales up images for print quality
+export async function inlineSvgImagesHighRes(
+  svgMarkup: string,
+  scale = 3,
+): Promise<string> {
+  const parser = new DOMParser();
+  const doc = parser.parseFromString(svgMarkup, "image/svg+xml");
+  const images = Array.from(doc.querySelectorAll("image"));
+
+  for (const img of images) {
+    const href = (
+      img.getAttribute("href") ||
+      img.getAttribute("xlink:href") ||
+      ""
+    ).trim();
+    if (!href || href.startsWith("data:")) continue;
+
+    let absUrl: string;
+    try {
+      absUrl = new URL(href, window.location.href).href;
+    } catch (_) {
+      continue;
+    }
+
+    // Load image and scale up for high resolution
+    const dataUrl = await loadAndScaleImage(absUrl, scale);
+    if (!dataUrl) continue;
+
+    img.setAttribute("href", dataUrl);
+    img.removeAttribute("xlink:href");
+  }
+
+  return new XMLSerializer().serializeToString(doc.documentElement);
+}
+
+async function loadAndScaleImage(
+  url: string,
+  scale: number,
+): Promise<string | null> {
+  return new Promise((resolve) => {
+    const img = new Image();
+    img.crossOrigin = "anonymous";
+    img.onload = () => {
+      const canvas = document.createElement("canvas");
+      canvas.width = img.naturalWidth * scale;
+      canvas.height = img.naturalHeight * scale;
+      const ctx = canvas.getContext("2d");
+      if (!ctx) {
+        resolve(null);
+        return;
+      }
+      ctx.imageSmoothingEnabled = true;
+      ctx.imageSmoothingQuality = "high";
+      ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
+      resolve(canvas.toDataURL("image/png"));
+    };
+    img.onerror = () => resolve(null);
+    img.src = url;
+  });
+}
+
 function blobToDataUrl(blob: Blob): Promise<string> {
   return new Promise((resolve, reject) => {
     const reader = new FileReader();

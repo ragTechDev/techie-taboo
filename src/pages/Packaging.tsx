@@ -39,7 +39,62 @@ const PANEL_EXPORT_LAYOUT = [
   { name: "short-side-bottom", x: 29.4, y: 124.4, width: 66, height: 29.4 },
   { name: "long-side-left", x: 0, y: 29.4, width: 29.4, height: 95 },
   { name: "long-side-right", x: 95.4, y: 29.4, width: 29.4, height: 95 },
+  { name: "lid-back", x: 124.8, y: 29.4, width: 66, height: 95 },
 ];
+
+// Component to render back cover preview
+function BackCoverPreview({ svgOutput }: { svgOutput: string }) {
+  const [croppedSvg, setCroppedSvg] = useState<string>("");
+
+  useEffect(() => {
+    if (!svgOutput) return;
+    const backPanel = PANEL_EXPORT_LAYOUT.find((p) => p.name === "lid-back");
+    if (!backPanel) return;
+
+    // Create a cropped SVG for preview using viewBox
+    const parser = new DOMParser();
+    const doc = parser.parseFromString(svgOutput, "image/svg+xml");
+    const svg = doc.documentElement;
+    const serializer = new XMLSerializer();
+
+    // Get defs
+    const defsMarkup = Array.from(svg.children)
+      .filter((child) => child.tagName.toLowerCase() === "defs")
+      .map((child) => serializer.serializeToString(child))
+      .join("");
+
+    // Get all content
+    const contentMarkup = Array.from(svg.children)
+      .filter((child) => child.tagName.toLowerCase() !== "defs")
+      .map((child) => serializer.serializeToString(child))
+      .join("");
+
+    // Create cropped SVG with viewBox focused on back panel
+    const cropped = `<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" width="100%" height="100%" viewBox="${backPanel.x} ${backPanel.y} ${backPanel.width} ${backPanel.height}" preserveAspectRatio="xMidYMid meet">
+  ${defsMarkup}
+  <g>
+    ${contentMarkup}
+  </g>
+</svg>`;
+    setCroppedSvg(cropped);
+  }, [svgOutput]);
+
+  if (!croppedSvg) return <div>Loading...</div>;
+
+  return (
+    <div
+      data-testid="back-cover-svg"
+      dangerouslySetInnerHTML={{ __html: croppedSvg }}
+      style={{
+        width: "600px",
+        height: "864px", // 600 * (95/66) = 864 (aspect ratio, 2x for sharper display)
+        margin: "0 auto",
+        imageRendering: "-webkit-optimize-contrast",
+      }}
+    />
+  );
+}
 
 async function cropSvgToPanel(
   svgString: string,
@@ -149,7 +204,7 @@ export function Packaging() {
 
     try {
       // Export current preview SVG to avoid first-click regeneration timing issues
-      const png = await svgToPngPrint(output, 124.8, 153.8); // High DPI for print
+      const png = await svgToPngPrint(output, 190.8, 153.8); // High DPI for print
       const filename = `${selectedCategory || selectedEdition}-packaging.png`;
       downloadBlob(png, filename);
     } catch (error) {
@@ -168,7 +223,7 @@ export function Packaging() {
         includeBorders: false,
         useSystemFonts: false,
       });
-      const png = await svgToPngPrint(svg, 124.8, 153.8);
+      const png = await svgToPngPrint(svg, 190.8, 153.8);
       const filename = `${selectedCategory || selectedEdition}-packaging-no-borders.png`;
       downloadBlob(png, filename);
     } catch (error) {
@@ -196,6 +251,29 @@ export function Packaging() {
     } catch (error) {
       console.error("Failed to export panels:", error);
       alert("Failed to export panels. Please check the console for errors.");
+    }
+  };
+
+  const handleExportBackCover = async () => {
+    if (!output) return;
+
+    try {
+      const backPanel = PANEL_EXPORT_LAYOUT.find((p) => p.name === "lid-back");
+      if (!backPanel) throw new Error("Back panel not found in layout");
+
+      const panelSvg = await cropSvgToPanel(output, backPanel);
+      const png = await svgToPngPrint(
+        panelSvg,
+        backPanel.width,
+        backPanel.height,
+      );
+      const filename = `${selectedCategory || selectedEdition}-back-cover.png`;
+      downloadBlob(png, filename);
+    } catch (error) {
+      console.error("Failed to export back cover:", error);
+      alert(
+        "Failed to export back cover. Please check the console for errors.",
+      );
     }
   };
 
@@ -233,15 +311,16 @@ export function Packaging() {
             </p>
           </div>
 
-          {/* Preview */}
+          {/* Full Packaging Preview */}
           {output && (
             <Card data-testid="packaging-preview">
               <CardHeader>
                 <div className="flex items-center justify-between">
                   <div>
-                    <CardTitle>Packaging Preview</CardTitle>
+                    <CardTitle>Full Packaging Preview</CardTitle>
                     <CardDescription>
-                      Preview of your packaging design (1:1 scale)
+                      Complete layout with all panels (scroll right to see back
+                      cover)
                     </CardDescription>
                   </div>
                   <div className="flex gap-2">
@@ -269,11 +348,40 @@ export function Packaging() {
                     data-testid="packaging-svg"
                     dangerouslySetInnerHTML={{ __html: output }}
                     style={{
-                      width: "100%",
-                      maxWidth: "980px",
+                      minWidth: "1200px",
                       margin: "0 auto",
+                      imageRendering: "-webkit-optimize-contrast",
                     }}
                   />
+                </div>
+              </CardContent>
+            </Card>
+          )}
+
+          {/* Back Cover Preview */}
+          {output && (
+            <Card data-testid="back-cover-preview">
+              <CardHeader>
+                <div className="flex items-center justify-between">
+                  <div>
+                    <CardTitle>Back Cover Preview</CardTitle>
+                    <CardDescription>
+                      Lid back panel only (66x95mm)
+                    </CardDescription>
+                  </div>
+                  <Button
+                    variant="outline"
+                    onClick={handleExportBackCover}
+                    disabled={!output}
+                    data-testid="export-back-cover-button"
+                  >
+                    Download Back Cover PNG
+                  </Button>
+                </div>
+              </CardHeader>
+              <CardContent>
+                <div className="overflow-auto bg-gray-50 rounded-lg p-4">
+                  <BackCoverPreview svgOutput={output} />
                 </div>
               </CardContent>
             </Card>

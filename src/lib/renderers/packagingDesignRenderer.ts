@@ -223,6 +223,11 @@ async function ensurePackagingImages() {
   const images = {
     ragtechLogo: null as string | null,
     techybaraPlaying: null as string | null,
+    howToPlayRules: null as string | null,
+    teacher: null as string | null,
+    taboo: null as string | null,
+    qrcode: null as string | null,
+    arrow: null as string | null,
   };
 
   if (!images.ragtechLogo) {
@@ -234,6 +239,23 @@ async function ensurePackagingImages() {
     images.techybaraPlaying = await fetchImageAsDataUri(
       "/techybara/techybaras-playing-card-game.png",
     );
+  }
+  if (!images.howToPlayRules) {
+    images.howToPlayRules = await fetchImageAsDataUri(
+      "/assets/techybara/rules.png",
+    );
+  }
+  if (!images.teacher) {
+    images.teacher = await fetchImageAsDataUri("/assets/techybara/teacher.png");
+  }
+  if (!images.taboo) {
+    images.taboo = await fetchImageAsDataUri("/assets/techybara/taboo.png");
+  }
+  if (!images.qrcode) {
+    images.qrcode = await fetchImageAsDataUri("/assets/techybara/qrcode.png");
+  }
+  if (!images.arrow) {
+    images.arrow = await fetchImageAsDataUri("/assets/techybara/arrow.png");
   }
 
   return images;
@@ -296,7 +318,10 @@ export async function createPackagingSVG(
 
   const sidePanelWidth = PACKAGING_PANEL_MM.shortSide.width;
   const sidePanelHeight = PACKAGING_PANEL_MM.longSide.height;
-  const totalWidth = PACKAGING_PANEL_MM.lidTop.width + sidePanelWidth * 2;
+  const totalWidth =
+    PACKAGING_PANEL_MM.lidTop.width +
+    sidePanelWidth * 2 +
+    PACKAGING_PANEL_MM.lidTop.width;
   const totalHeight = PACKAGING_PANEL_MM.lidTop.height + sidePanelHeight * 2;
   const topX = sidePanelWidth;
   const topY = sidePanelHeight;
@@ -389,8 +414,13 @@ export async function createPackagingSVG(
 
   const panelAttrs = includeBorders ? 'class="panel-stroke"' : 'stroke="none"';
 
+  // Convert mm to pixels at 96 DPI for sharp browser rendering
+  const pxPerMm = 96 / 25.4;
+  const widthPx = Math.round(totalWidth * pxPerMm);
+  const heightPx = Math.round(totalHeight * pxPerMm);
+
   return `<?xml version="1.0" encoding="UTF-8"?>
-<svg xmlns="http://www.w3.org/2000/svg" width="${totalWidth}mm" height="${totalHeight}mm" viewBox="0 0 ${totalWidth} ${totalHeight}" shape-rendering="geometricPrecision" text-rendering="geometricPrecision">
+<svg xmlns="http://www.w3.org/2000/svg" width="${widthPx}" height="${heightPx}" viewBox="0 0 ${totalWidth} ${totalHeight}" shape-rendering="geometricPrecision" text-rendering="geometricPrecision">
   <defs>
     <style><![CDATA[
       ${
@@ -422,7 +452,7 @@ export async function createPackagingSVG(
       .panel-stroke { stroke: rgba(8, 20, 24, 0.48); stroke-width: 0.35; }
     ]]></style>
     <filter id="titleLift" x="-20%" y="-20%" width="140%" height="140%">
-      <feDropShadow dx="0" dy="5" stdDeviation="2" flood-color="#6b7280" flood-opacity="0.32" />
+      <feDropShadow dx="0" dy="5" stdDeviation="1" flood-color="#6b7280" flood-opacity="0.32" />
     </filter>
     <clipPath id="lidTopClip">
       <rect x="${topX}" y="${topY}" width="${PACKAGING_PANEL_MM.lidTop.width}" height="${PACKAGING_PANEL_MM.lidTop.height}" />
@@ -454,9 +484,9 @@ export async function createPackagingSVG(
     <text x="${topX + 57.5}" y="${topY + 7.7}" text-anchor="middle" fill="${badgeTextColor}" font-size="2.2" font-weight="800" class="mono">2+ players</text>
   </g>
 
-  <g filter="url(#titleLift)">
-    <text x="${topX + 33}" y="${topY + 23}" text-anchor="middle" fill="${techieColor}" font-size="14.0" font-weight="900" letter-spacing="0.55" class="gaegu">TECHIE</text>
-    <text x="${topX + 33}" y="${topY + 34.8}" text-anchor="middle" fill="${tabooColor}" font-size="14.0" font-weight="900" letter-spacing="0.55" class="gaegu">TABOO</text>
+  <g>
+    <text x="${topX + 33}" y="${topY + 23}" text-anchor="middle" fill="${techieColor}" font-size="14.0" font-weight="700" letter-spacing="0.55" class="gaegu" text-rendering="geometricPrecision" shape-rendering="geometricPrecision">TECHIE</text>
+    <text x="${topX + 33}" y="${topY + 34.8}" text-anchor="middle" fill="${tabooColor}" font-size="14.0" font-weight="700" letter-spacing="0.55" class="gaegu" text-rendering="geometricPrecision" shape-rendering="geometricPrecision">TABOO</text>
   </g>
 
   <g fill="${techieColor}" font-size="3.1" text-anchor="middle" class="gaegu">
@@ -510,5 +540,77 @@ export async function createPackagingSVG(
       ${longSideDescriptionLines.map((line, idx) => `<text x="${rightX + (PACKAGING_PANEL_MM.longSide.height - 20.8)}" y="${longSideDescCenterY - 5.2 + idx * 2.8 + 2.2}" text-anchor="middle" font-size="2.2" class="gaegu">${line}</text>`).join("")}
     </g>
   </g>
+
+  <!-- Back panel (lid-back) with programmatic layout -->
+  <rect x="124.8" y="${topY}" width="${PACKAGING_PANEL_MM.lidTop.width}" height="${PACKAGING_PANEL_MM.lidTop.height}" fill="${background}" ${panelAttrs} />
+  
+  <!-- Element 1: "How to Play" pill (top left) - BIGGER -->
+  <rect x="127" y="${topY + 3.5}" width="28" height="6" rx="3" fill="${categoryColor}" />
+  <text x="141" y="${topY + 7.5}" text-anchor="middle" fill="${categoryTextColor}" font-size="3.2" font-weight="800" class="mono">HOW TO PLAY</text>
+  
+  <!-- Element 2: Sample card (2nd from left on front) - MORE CROPPED AND LEFT -->
+  ${await buildCardSampleMarkup(
+    samples[1],
+    127.5,
+    topY + 13,
+    0,
+    30.45,
+    45.57,
+    primaryCategory,
+    categoryColor,
+  )}
+  
+  <!-- Arrow pointing out from card right corner -->
+  <image href="${embeddedImages.arrow}" x="145" y="${topY + 7}" width="15" height="15" transform="rotate(49 152.5 ${topY + 14.5})" preserveAspectRatio="xMidYMid meet" style="image-rendering: optimizeQuality;" />
+  
+  <!-- Big curly brace next to card -->
+  <text x="160" y="${topY + 33}" text-anchor="middle" fill="black" font-size="15" class="mono">}</text>
+  
+  <!-- Text next to arrow -->
+  <text x="175" y="${topY + 12}" text-anchor="middle" fill="black" font-size="2.8" class="gaegu" font-weight="700">Get your team to</text>
+  <text x="175" y="${topY + 15}" text-anchor="middle" fill="black" font-size="2.8" class="gaegu" font-weight="700">guess as many</text>
+  <!-- Pink highlight behind "buzzwords" -->
+  <rect x="166" y="${topY + 15.8}" width="18" height="3.3" fill="#fba3a9" rx="0.5" />
+  <text x="175" y="${topY + 18}" text-anchor="middle" fill="black" font-size="2.8" class="gaegu" font-weight="700">buzzwords</text>
+  <text x="175" y="${topY + 21}" text-anchor="middle" fill="black" font-size="2.8" class="gaegu" font-weight="700">in 1 min!</text>
+  
+  <!-- Extra Rules pill (above teacher) - LONGER -->
+  <rect x="127" y="${topY + 60}" width="24" height="4.5" rx="2.25" fill="${categoryColor}" />
+  <text x="139" y="${topY + 63.2}" text-anchor="middle" fill="${categoryTextColor}" font-size="2.4" font-weight="800" class="mono">Extra Rules</text>
+  
+  <!-- Element 3: Teacher techybara image (bottom left) - HORIZONTALLY FLIPPED -->
+  <g transform="translate(${127 + 17}, ${topY + 70}) scale(-1, 1)">
+    <image href="${embeddedImages.teacher}" x="0" y="0" width="17" height="17" preserveAspectRatio="xMidYMid meet" style="image-rendering: optimizeQuality;" />
+  </g>
+  
+  <!-- Element 4: Rules text box (touching teacher) - BIGGER FONT, BIGGER RECT -->
+  <rect x="144" y="${topY + 67}" width="27" height="20" rx="2" fill="white" stroke="${categoryColor}" stroke-width="0.4" />
+  <text x="157.5" y="${topY + 71}" text-anchor="middle" fill="${techieColor}" font-size="2.6" class="gaegu" font-weight="700">You cannot say</text>
+  <text x="157.5" y="${topY + 74}" text-anchor="middle" fill="${techieColor}" font-size="2.6" class="gaegu" font-weight="700">acronyms or</text>
+  <text x="157.5" y="${topY + 77}" text-anchor="middle" fill="${techieColor}" font-size="2.6" class="gaegu" font-weight="700">expanded forms</text>
+  <text x="157.5" y="${topY + 80}" text-anchor="middle" fill="${techieColor}" font-size="2.6" class="gaegu" font-weight="700">of the words on</text>
+  <text x="157.5" y="${topY + 83}" text-anchor="middle" fill="${techieColor}" font-size="2.6" class="gaegu" font-weight="700">the card.</text>
+  
+  <!-- Element 5: Taboo logo (right side) - MORE LEFT AND DOWN -->
+  <image href="${embeddedImages.taboo}" x="160" y="${topY + 36}" width="26" height="26" preserveAspectRatio="xMidYMid meet" style="image-rendering: optimizeQuality;" />
+  
+  <!-- Text about TABOO words -->
+  <text x="175" y="${topY + 26}" text-anchor="middle" fill="black" font-size="2.8" class="gaegu" font-weight="700">If you say the</text>
+  <text x="175" y="${topY + 29}" text-anchor="middle" fill="black" font-size="2.8" class="gaegu" font-weight="700">TABOO words</text>
+  <text x="175" y="${topY + 32}" text-anchor="middle" fill="black" font-size="2.8" class="gaegu" font-weight="700">while explaining,</text>
+  <text x="175" y="${topY + 35}" text-anchor="middle" fill="black" font-size="2.8" class="gaegu" font-weight="700">no points!</text>
+  
+  <!-- Element 7: Speech bubble (above QR code) - CENTERED WITH QR -->
+  <g>
+    <!-- Speech bubble rectangle -->
+    <rect x="173" y="${topY + 65}" width="16" height="7" rx="3.5" fill="${categoryColor}" />
+    <text x="181" y="${topY + 68.1}" text-anchor="middle" fill="${categoryTextColor}" font-size="1.8" font-weight="800" class="mono">Scan here</text>
+    <text x="181" y="${topY + 70.5}" text-anchor="middle" fill="${categoryTextColor}" font-size="1.8" font-weight="800" class="mono">for links!</text>
+    <!-- Speech bubble pointer (triangle pointing down to QR) -->
+    <path d="M${181 - 1.5},${topY + 72} l1.5,2 l1.5,-2 z" fill="${categoryColor}" />
+  </g>
+  
+  <!-- Element 6: QR code (bottom right) - SLIGHTLY LEFT -->
+  <image href="${embeddedImages.qrcode}" x="175.5" y="${topY + 75}" width="11" height="11" preserveAspectRatio="xMidYMid meet" style="image-rendering: optimizeQuality;" />
 </svg>`;
 }
